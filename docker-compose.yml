@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: 
+      context: ./backend
+    container_name: em_backend
+    environment:
+      # Передаем переменную из .env внутрь контейнера, чтобы app.py её прочитал
+      - BACKEND_PORT=${BACKEND_PORT}
+    expose:
+      - "${BACKEND_PORT}" # Документируем, что порт открыт только внутри docker-сети
+    networks:
+      - em_network
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: em_nginx
+    ports:
+      - "${NGINX_HOST_PORT}:80" # Пробрасываем порт наружу
+    depends_on:
+      - backend
+    networks:
+      - em_network
+    restart: unless-stopped
+
+networks:
+  em_network:
+    driver: bridge
