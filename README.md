@@ -90,3 +90,14 @@ curl: (7) Failed to connect to localhost port 8080: Connection refused
 ```bash
 docker compose down
 ```
+### Проверка снаружи (из интернета)
+**Приложение было развёрнуто в облаке Microsoft Azure**
+Откройте браузер на вашем компьютере и введите:
+```bash
+http://20.91.202.5
+```
+или
+введите в консоли (терминале):
+```bash
+curl http://20.91.202.5
+```
